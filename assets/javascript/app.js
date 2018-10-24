@@ -1,4 +1,6 @@
+// Creating Global variables
 var countStartNumber = 30;
+var mainDiv = $("#xcard");
 
 // Creating a TriviaGame object to hold our logic and variables
 var triviaGame = [{
@@ -59,7 +61,7 @@ function countdown() {
     $("#scard").text(counter);
     // if counter gets to 0...
     if(counter === 0) {
-        console.log("TIME UP!");
+        // console.log("TIME UP!");
         // CALLING THE timeUp function(Which has not been created at this point)
         timeUp();
     };
@@ -70,11 +72,11 @@ function loadQuestion() {
     // setting the timer to countdown for each question
     timer = setInterval(countdown, 1000);
     // Using jQuery to to append questions to the page
-    $("#xcard").html("<h6>" + questions[this.currentQuestion].question + "</h6>");
+    mainDiv.html("<h6>" + questions[this.currentQuestion].question + "</h6>");
     // Now looping throung through the answers array in the question object
     for (var i = 0; i < questions[this.currentQuestion].options.length; i++){
         // using jQuery to append answers buttons to the questions div
-        $("#xcard").append("<button class=\"btn btn-dark\" id=\"button\" data-name='" + questions[this.currentQuestion].options[i] + "'>" + questions[this.currentQuestion].options[i] + "</button>");
+        mainDiv.append("<button class=\"btn btn-dark\" id=\"button\" data-name='" + questions[this.currentQuestion].options[i] + "'>" + questions[this.currentQuestion].options[i] + "</button>");
     };
 };
 
@@ -90,7 +92,25 @@ function nextQuestion() {
     loadQuestion();
 };
 
-
+// Creating the timeUp function
+function timeUp() {
+    // Clearinng our timer
+    clearInterval(timer);
+    // Using jQuery to append the counter to to the counnter div
+    $("#scard").html(counter);
+    // Message to show when time is up
+    mainDiv.html("<h4>Time's Up!</h4>");
+    mainDiv.append("<h5>The Correct Answer was: " + questions[this.currentQuestion].rightOption);
+    // if currentQuestion has reached the questions limit,
+    if(currentQuestion === questions.length - 1) {
+        // show results
+        setTimeout(results, 3 * 1000);
+    }
+    else {
+        // show the next question
+        setTimeout(nextQuestion, 3 * 1000);
+    }
+};
 
 
 
