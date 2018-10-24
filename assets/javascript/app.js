@@ -60,10 +60,11 @@ function countdown() {
     // if counter gets to 0...
     if(counter === 0) {
         console.log("TIME UP!");
-        // CALLING THE timeUp function
+        // CALLING THE timeUp function(Which has not been created at this point)
         timeUp();
     };
 };
+
 // Creating the questionView function
 function loadQuestion() {
     // setting the timer to countdown for each question
@@ -76,6 +77,20 @@ function loadQuestion() {
         $("#xcard").append("<button class=\"btn btn-dark\" id=\"button\" data-name='" + questions[this.currentQuestion].options[i] + "'>" + questions[this.currentQuestion].options[i] + "</button>");
     };
 };
+
+// Creating function to bring the next question as soon as time runs out
+function nextQuestion() {
+    // setting counter to 30seconds
+    counter = countStartNumber;
+    // Using jQuery to append counter to counter div
+    $("#scard").text(counter);
+    // Tellimngthe function to show the next question as soon as time runs out
+    currentQuestion++;
+    // calling the loadQuestion function to show the next question and answers
+    loadQuestion();
+};
+
+
 
 
 
