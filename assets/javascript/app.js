@@ -192,7 +192,19 @@ function answeredCorrectly() {
         // go to next question
         setTimeout(nextQuestion, 3  * 1000);
     }
-}
+};
+
+// Creating function to reset the game
+function reset() {
+    currentQuestion = 0;
+    counter = countStartNumber;
+    correct = 0;
+    incorrect =  0;
+    loadQuestion();
+};
+
+// calling all functions 
+
 
 
 
