@@ -1,6 +1,8 @@
 // Creating Global variables
 var countStartNumber = 30;
 var mainDiv = $("#xcard");
+var myAudio = document.createElement("audio");
+myAudio.src = "assets/images/song.mp3";
 
 // Creating a TriviaGame object to hold our logic and variables
 var triviaGame = [{
@@ -17,7 +19,7 @@ var triviaGame = [{
             question: "Who designed the Nigeria flag?",
             options: ["Taiwo Akinkunmi","Nnamdi Azikiwe","Olusegun Obasanjo","Mary Slessor","Benedict E. Odiase"],
             rightOption: "Taiwo Akinkunmi",
-            image: "assets/images/9ja flag.gif"
+            image: "assets/images/taiwoakinkunmi.jpg"
         }, {
             question: "Which is the longest river in Africa?",
             options: ["Congo river","The Nile river","Zambezi","Limpopo","Blue Nile"],
@@ -82,11 +84,11 @@ function loadQuestion() {
     // setting the timer to countdown for each question
     timer = setInterval(countdown, 1000);
     // Using jQuery to to append questions to the page
-    mainDiv.html("<h6>" + questions[this.currentQuestion].question + "</h6>");
+    mainDiv.html("<h6>" + questions[currentQuestion].question + "</h6>");
     // Now looping throung through the answers array in the question object
-    for (var i = 0; i < questions[this.currentQuestion].options.length; i++){
+    for (var i = 0; i < questions[currentQuestion].options.length; i++){
         // using jQuery to append answers buttons to the questions div
-        mainDiv.append("<button class=\"btn btn-dark\" id=\"button\" data-name='" + questions[this.currentQuestion].options[i] + "'>" + questions[this.currentQuestion].options[i] + "</button>");
+        mainDiv.append("<button class=\"btn btn-danger\" id=\"answer-button\" data-name='" + questions[currentQuestion].options[i] + "'>" + questions[currentQuestion].options[i] + "</button>");
     };
 };
 
@@ -111,6 +113,7 @@ function timeUp() {
     // Message to show when time is up
     mainDiv.html("<h4>Time's Up!</h4>");
     mainDiv.append("<h5>The Correct Answer was: " + questions[this.currentQuestion].rightOption);
+    mainDiv.append("<img src=\"" + questions[currentQuestion].image + "\" class=\"question-img\">");
     // if currentQuestion has reached the questions limit,
     if(currentQuestion === questions.length - 1) {
         // show results
@@ -135,7 +138,7 @@ function timeUp() {
         mainDiv.append("<h6>Wrong Answers: " + incorrect + "</h6>");
         mainDiv.append("<h6>Unanswered: " + (questions.length - (incorrect + correct)) + "</h6>");
         // Creating a button to start over
-        mainDiv.append("<br><button class=\"btn btn-primary\" id=\"start-over\">Restart?</button>");
+        mainDiv.append("<br><button class=\"btn btn-danger\" id=\"start-over\">Restart?</button>");
     };
 
     // Creating function for when answers are clicked
@@ -143,13 +146,13 @@ function timeUp() {
         // clearing the timer
         clearInterval(timer);
         // now if the answer clicked is the right answer...
-        if($(e.target).attr("data-name") === questions[this.currentQuestion].rightOption) {
+        if($(e.target).attr("data-name") === questions[currentQuestion].rightOption) {
             // answer is right (function has not been created)
-            this.answeredCorrectly();
+            answeredCorrectly();
         }
         else {
             // answer is wrong (function has not been created)
-            this.answeredIncorrectly();
+            answeredIncorrectly();
         }
     };
 
@@ -161,8 +164,8 @@ function answeredIncorrectly() {
     clearInterval(timer);
     // Displaying the incorrect answer results
     mainDiv.html("<h5>Nope!</h5>");
-    mainDiv.append("<h6>The Correct Answer was:; " + questions[currentQuestion].rightOption + "</h6>");
-    mainDiv.append("<img src=\"" + questions[currentQuestion].image + "\" />");
+    mainDiv.append("<h6>The Correct Answer was: " + questions[currentQuestion].rightOption + "</h6>");
+    mainDiv.append("<img src=\"" + questions[currentQuestion].image + "\" class=\"question-img\"/>");
     // if questions gets to the limit...
     if (currentQuestion === questions.length - 1) {
         // show results
@@ -182,7 +185,7 @@ function answeredCorrectly() {
     correct++;
     // Display the correct answer details
     mainDiv.html("<h5>Correct!</h5>");
-    mainDiv.append("<img src=\"" + questions[currentQuestion].image + "\" />");
+    mainDiv.append("<img src=\"" + questions[currentQuestion].image + "\" class=\"question-img\"/>");
     // if questions get to limit
     if(currentQuestion === questions.length - 1) {
         // show results
@@ -203,8 +206,32 @@ function reset() {
     loadQuestion();
 };
 
-// calling all functions 
 
+//  CLICK EVENTS
+// when restart button is clicked
+$(document).on("click", "#start-over", function() {
+    reset();
+});
+// when answer button is clicked
+$(document).on("click", "#answer-button", function(e) {
+    clicked(e);
+});
+// when start button is clicked at beginning of game
+$(document).on("click", "#start", function() {
+    loadQuestion();
+    myAudio.play();
+});
+
+// calling all functions 
+// countdown();
+// loadQuestion();
+// nextQuestion();
+// timeUp();
+// results();
+// clicked();
+// answeredIncorrectly();
+// answeredCorrectly();
+// reset();
 
 
 
