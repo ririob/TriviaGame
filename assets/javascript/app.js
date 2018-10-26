@@ -120,6 +120,7 @@ function timeUp() {
         // show the next question
         setTimeout(nextQuestion, 3 * 1000);
     };
+};
 
     // Creating the results disply function
     function results() {
@@ -136,7 +137,63 @@ function timeUp() {
         // Creating a button to start over
         mainDiv.append("<br><button class=\"btn btn-primary\" id=\"start-over\">Restart?</button>");
     };
+
+    // Creating function for when answers are clicked
+    function clicked(e) {
+        // clearing the timer
+        clearInterval(timer);
+        // now if the answer clicked is the right answer...
+        if($(e.target).attr("data-name") === questions[this.currentQuestion].rightOption) {
+            // answer is right (function has not been created)
+            this.answeredCorrectly();
+        }
+        else {
+            // answer is wrong (function has not been created)
+            this.answeredIncorrectly();
+        }
+    };
+
+// Creating the incorrect answers function
+function answeredIncorrectly() {
+    // increase the incorrect answers
+    incorrect++;
+    // clearing the timer
+    clearInterval(timer);
+    // Displaying the incorrect answer results
+    mainDiv.html("<h5>Nope!</h5>");
+    mainDiv.append("<h6>The Correct Answer was:; " + questions[currentQuestion].rightOption + "</h6>");
+    mainDiv.append("<img src=\"" + questions[currentQuestion].image + "\" />");
+    // if questions gets to the limit...
+    if (currentQuestion === questions.length - 1) {
+        // show results
+        setTimeout(results, 3 * 1000);
+    }
+    else {
+        // go to next question
+        setTimeout(nextQuestion, 3 * 1000);
+    }
 };
+
+// Creating the correct answers function
+function answeredCorrectly() {
+    // clear timer
+    clearInterval(timer);
+    // increase the correct answers score
+    correct++;
+    // Display the correct answer details
+    mainDiv.html("<h5>Correct!</h5>");
+    mainDiv.append("<img src=\"" + questions[currentQuestion].image + "\" />");
+    // if questions get to limit
+    if(currentQuestion === questions.length - 1) {
+        // show results
+        setTimeout(results, 3 * 1000);
+    }
+    else{
+        // go to next question
+        setTimeout(nextQuestion, 3  * 1000);
+    }
+}
+
 
 
 
