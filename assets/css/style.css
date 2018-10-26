@@ -55,3 +55,10 @@ body {
     height: 200px;
     width: 200px;
 }
+
+/* footer */
+#footerdiv {
+    background: red;
+    text-align: center;
+    color: white;
+}

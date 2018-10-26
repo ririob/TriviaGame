@@ -184,7 +184,7 @@ function answeredCorrectly() {
     // increase the correct answers score
     correct++;
     // Display the correct answer details
-    mainDiv.html("<h5>Correct!</h5>");
+    mainDiv.html("<h5>You are Correct! Congratulations!</h5>");
     mainDiv.append("<img src=\"" + questions[currentQuestion].image + "\" class=\"question-img\"/>");
     // if questions get to limit
     if(currentQuestion === questions.length - 1) {
