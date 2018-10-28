@@ -73,7 +73,6 @@ function countdown() {
     $("#scard").text(counter);
     // if counter gets to 0...
     if(counter === 0) {
-        // console.log("TIME UP!");
         // CALLING THE timeUp function(Which has not been created at this point)
         timeUp();
     };
@@ -222,16 +221,7 @@ $(document).on("click", "#start", function() {
     myAudio.play();
 });
 
-// calling all functions 
-// countdown();
-// loadQuestion();
-// nextQuestion();
-// timeUp();
-// results();
-// clicked();
-// answeredIncorrectly();
-// answeredCorrectly();
-// reset();
+
 
 
 
